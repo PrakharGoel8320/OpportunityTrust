@@ -79,7 +79,7 @@ This makes scam detection easier even for a beginner.
 ## 🖼️ Screenshots
 
 ### Figure 1: TigerGraph full network (with labels)
-![TigerGraph Full Network](images/Screenshot 2026-03-31 225250.png)
+![TigerGraph Full Network](images/Screenshot%202026-03-31%20225250.png)
 
 This screen shows the raw graph in TigerGraph with visible edge labels like `complaint_to_upi` and `complaint_to_company`.
 
@@ -89,7 +89,7 @@ What this reveals:
 - This is the relationship data used by backend scoring.
 
 ### Figure 2: TigerGraph clean network view
-![TigerGraph Clean Graph](images/Screenshot 2026-03-31 225306.png)
+![TigerGraph Clean Graph](images/Screenshot%202026-03-31%20225306.png)
 
 This is a cleaner visual of the same graph pattern without cluttered text.
 
@@ -98,7 +98,7 @@ What this reveals:
 - Central UPI node with many incoming complaint links means higher risk.
 
 ### Figure 3: Landing page (Home)
-![Landing Page Home](images/Screenshot 2026-04-06 125432.png)
+![Landing Page Home](images/Screenshot%202026-04-06%20125432.png)
 
 This is the first page users see.
 
@@ -108,7 +108,7 @@ What this reveals:
 - Call-to-action buttons help users quickly start analysis.
 
 ### Figure 4: How It Works workflow page
-![How It Works Workflow](images/Screenshot 2026-04-06 125449.png)
+![How It Works Workflow](images/Screenshot%202026-04-06%20125449.png)
 
 This page explains the full pipeline in one flow.
 
@@ -117,7 +117,7 @@ What this reveals:
 - The system is designed for beginners who want explainable logic.
 
 ### Figure 5: Analyze page with live result
-![Analyze Result Main](images/Screenshot 2026-04-06 125852.png)
+![Analyze Result Main](images/Screenshot%202026-04-06%20125852.png)
 
 This screen shows a real suspicious message being analyzed.
 
@@ -127,7 +127,7 @@ What this reveals:
 - TigerGraph complaint count is included directly in result.
 
 ### Figure 6: Explanation and risk bullets
-![Risk Explanation](images/Screenshot 2026-04-06 130004.png)
+![Risk Explanation](images/Screenshot%202026-04-06%20130004.png)
 
 This section explains *why* the message is risky.
 
@@ -136,7 +136,7 @@ What this reveals:
 - Users can see exact signals: high complaints, urgency words, money request, official identity claim, handle-like address.
 
 ### Figure 7: Graph preview summary card
-![Graph Preview Summary](images/Screenshot 2026-04-06 130022.png)
+![Graph Preview Summary](images/Screenshot%202026-04-06%20130022.png)
 
 This graph card converts backend JSON into a quick visual summary.
 
@@ -146,7 +146,7 @@ What this reveals:
 - Data is tagged as `Live / Cached` for clarity.
 
 ### Figure 8: Graph preview detailed layout
-![Graph Preview Detailed](images/Screenshot 2026-04-06 130051.png)
+![Graph Preview Detailed](images/Screenshot%202026-04-06%20130051.png)
 
 This is a wider view of graph preview and JSON block together.
 
@@ -155,7 +155,7 @@ What this reveals:
 - Users can inspect exact backend response for trust and debugging.
 
 ### Figure 9: Raw Graph Data JSON panel
-![Graph JSON Panel](images/Screenshot 2026-04-06 130112.png)
+![Graph JSON Panel](images/Screenshot%202026-04-06%20130112.png)
 
 This close-up shows the graph JSON payload.
 
