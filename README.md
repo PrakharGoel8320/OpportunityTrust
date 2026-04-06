@@ -1,191 +1,390 @@
-# Opportunity Trust Intelligence Network
+# 🧠 Opportunity Trust Intelligence Network
 
-A beginner-friendly hackathon project to detect scam job/internship messages using:
-- simple AI text checks (rule-based)
-- live TigerGraph query
+### A smart helper that reads suspicious job messages and warns you before you lose money.
 
-This project has:
-- Flask backend API
-- React frontend with multi-page UI
-- TigerGraph live integration for complaint checks
+---
 
-## Project Structure
+## 👋 Hello! What is this project?
+Imagine your friend gets a message like this:
 
-- `backend/app.py` : Main Flask API (`/analyze`, `/graph`, `/docs`)
-- `backend/utils.py` : Extract company name and UPI id from message
-- `backend/tigergraph.py` : Calls TigerGraph REST API query `find_complaints_by_upi`
-- `backend/logic.py` : Trust score, risk level, explanation logic
-- `backend/.env.example` : Sample environment variables
-- `frontend/src/App.jsx` : Main router setup
-- `frontend/src/pages/Home.jsx` : Landing page
-- `frontend/src/pages/HowItWorks.jsx` : System flow page
-- `frontend/src/pages/Analyze.jsx` : Message analysis page
-- `frontend/src/pages/GraphPreview.jsx` : TigerGraph preview page
-- `frontend/src/components/` : Navbar, input, result, graph components
-- `frontend/src/App.css` : Dark theme and animations
-- `.gitignore` : GitHub-safe ignore rules
+"Congratulations! You got selected for an internship. Pay a registration fee now."
 
-## Backend Setup (Flask)
+It sounds exciting, but it may be a scam.
 
-1. Go to backend folder:
+This project helps people check such messages quickly. It gives a **Trust Score** from 0 to 100:
+- **Higher score** = message looks safer
+- **Lower score** = message looks risky
+
+---
+
+## 🚨 Problem Statement
+Today many students and job seekers receive fake messages like:
+- "Pay fee now to confirm interview"
+- "Send money to this UPI to join internship"
+- "Urgent! Last chance!"
+
+These scams can:
+- steal money
+- steal personal details
+- waste time and confidence
+
+Many people, especially beginners, cannot easily identify these fake messages.
+
+So the real problem is:
+**How can we quickly detect scam-like job/internship messages in a simple way?**
+
+---
+
+## 💡 Solution (Our Idea)
+We built a simple web app where a user:
+1. pastes a suspicious message
+2. clicks analyze
+3. sees a trust score, risk level, and explanation
+4. sees graph-based complaint connection data from TigerGraph
+
+In very simple words:
+- We check risky words in text
+- We detect UPI IDs
+- We check complaint links from a graph database
+- We combine all clues and generate a final score
+
+This makes scam detection easier even for a beginner.
+
+---
+
+## 🎯 Key Features
+- **Simple message input**
+: Paste any job/internship text and analyze instantly.
+
+- **Trust Score (0-100)**
+: Easy number that tells how safe or risky a message looks.
+
+- **Risk label (Low / Medium / High)**
+: Quick decision help for non-technical users.
+
+- **UPI extraction**
+: Detects UPI IDs like `name@upi` directly from text.
+
+- **TigerGraph complaint check**
+: Checks if that UPI is connected with complaint records.
+
+- **Visual graph preview**
+: Shows node connections so users can understand risk relationships.
+
+- **Beginner-friendly UI**
+: Clean pages for Home, How It Works, Analyze, and Graph Preview.
+
+---
+
+## 🖼️ Screenshots
+
+### Landing Page
+![Landing Page](Screenshot%202026-04-06%20125449.png)
+
+*Figure 1: Home screen where the user starts analysis.*
+
+### How It Works Page
+![How It Works](Screenshot%202026-04-06%20125852.png)
+
+*Figure 2: Simple flow of input -> processing -> graph check -> trust score output.*
+
+### Analyze + Result Page
+![Analyze Result](Screenshot%202026-04-06%20130051.png)
+
+*Figure 3: User enters suspicious message and gets trust score, risk, and explanation.*
+
+### Risk Explanation + Graph Section
+![Risk and Graph Section](Screenshot%202026-04-06%20130112.png)
+
+*Figure 4: Detailed risk reasons and graph preview for the detected UPI.*
+
+### Graph Preview Page
+![Graph Preview](Screenshot%202026-04-06%20130022.png)
+
+*Figure 5: Graph data card with UPI-centered connection summary.*
+
+### TigerGraph Explore View (Backend Graph Source)
+![TigerGraph Explore](Screenshot%202026-03-31%20225250.png)
+
+*Figure 6: Actual graph structure in TigerGraph used by the project.*
+
+> Note: Screenshot file names are kept same as captured files in the project root.
+
+---
+
+## 🏗️ How It Works (Step-by-Step)
+
+### Step 1: User inputs message
+The user pastes a suspicious job or internship message.
+
+Example:
+"Urgent! Pay registration fee now to confirm internship slot."
+
+### Step 2: AI-like text processing
+Backend checks risky clues such as:
+- urgency words (urgent, now, immediately)
+- payment words (fee, deposit, transfer)
+- suspicious offer patterns
+- UPI handles
+
+### Step 3: Graph relationship check
+If a UPI is found, backend asks TigerGraph:
+- How many complaints are linked to this UPI?
+- Which companies are connected with this UPI?
+
+### Step 4: Trust score generation
+All signals are combined.
+Then app shows:
+- Trust Score
+- Risk Level
+- Explanation bullets
+- Graph Preview
+
+---
+
+## 🧩 System Architecture
+
+### Components in simple words
+- **Frontend (React + Vite)**
+: What user sees and clicks.
+
+- **Backend (Flask API)**
+: Brain of the app, receives message and calculates score.
+
+- **AI logic (Rule-based scoring)**
+: Detects suspicious patterns from text.
+
+- **Graph Database (TigerGraph)**
+: Stores complaint links between UPI and company nodes.
+
+### Architecture Diagram (Simple)
+```text
+User Message
+    |
+    v
+Frontend (React)
+    |
+    v
+Backend API (Flask)
+    |            \
+    |             \--> Text Risk Analyzer (rules)
+    |
+    +--> TigerGraph Query (complaints + links)
+                    |
+                    v
+         Combined Trust Score + Explanation
+                    |
+                    v
+           UI Result + Graph Preview
+```
+
+---
+
+## 📊 Graph Explanation (VERY IMPORTANT)
+Think of graph like a **social network**, but for scam signals.
+
+### Node types
+- **Company node**
+: A company name appearing in suspicious messages.
+
+- **UPI node**
+: Payment handle used in messages, like `scam@upi`.
+
+- **Complaint node**
+: A complaint record raised by victims.
+
+### Edge (connection) meaning
+- **Complaint -> UPI**
+: This UPI was reported in a complaint.
+
+- **Complaint -> Company**
+: This company name appeared in that complaint.
+
+- **Company -> UPI (derived/linked)**
+: The app can show possible relation if found in graph response.
+
+### Easy analogy
+Like Instagram friends graph:
+- people are nodes
+- follows are edges
+
+Here:
+- company / upi / complaint are nodes
+- suspicious links are edges
+
+More links + more complaints = more risk.
+
+---
+
+## 🛠️ Tech Stack
+- **React**
+: Builds webpage screens.
+
+- **Vite**
+: Runs React fast during development.
+
+- **Flask (Python)**
+: Backend API server.
+
+- **Python regex + logic rules**
+: Finds UPI and suspicious patterns.
+
+- **TigerGraph**
+: Graph database for relationship checks.
+
+- **REST API**
+: Backend talks to TigerGraph using HTTP calls.
+
+- **CSS**
+: Styling for dark modern UI.
+
+---
+
+## ⚙️ Installation Guide (VERY SIMPLE)
+
+## 0) Things you need first
+- Python installed
+- Node.js installed
+- Git installed
+
+## 1) Clone the project
+```powershell
+git clone <your-repo-url>
+cd "Opportunity Trust"
+```
+
+## 2) Backend setup
 ```powershell
 cd backend
-```
-
-2. Create virtual environment:
-```powershell
 python -m venv venv
 venv\Scripts\activate
-```
-
-3. Install packages:
-```powershell
 pip install -r requirements.txt
 ```
 
-4. Create `.env` from `.env.example` and fill values:
+Create `.env` file inside `backend/` using this template:
 ```env
-TIGERGRAPH_HOST=https://<host>
-TIGERGRAPH_GRAPH_NAME=<graph_name>
-TIGERGRAPH_TOKEN=<bearer_token>
+TIGERGRAPH_HOST=https://<your-tigergraph-host>
+TIGERGRAPH_GRAPH_NAME=OpportunityTrust_Graph
+TIGERGRAPH_TOKEN=<your-token>
+TIGERGRAPH_QUERY_NAME=find_complaints_by_upi
 TG_UPI_PARAM_NAME=input_upi
 ```
 
-5. Run backend:
+Run backend:
 ```powershell
 python app.py
 ```
+Backend starts at: `http://127.0.0.1:5000`
 
-Backend runs at: `http://localhost:5000`
-
-Useful backend routes:
-- `GET /docs`
-- `POST /analyze`
-- `GET /graph?upi=<upi_id>`
-
-## Frontend Setup (React + Vite)
-
-1. Open new terminal and go to frontend:
+## 3) Frontend setup
+Open a new terminal:
 ```powershell
 cd frontend
-```
-
-2. Install npm packages:
-```powershell
 npm install
-```
-
-3. Start frontend:
-```powershell
 npm run dev
 ```
+Frontend starts at: `http://localhost:5173`
 
-Frontend runs at: `http://localhost:5173`
+## 4) Use app
+- Open browser at frontend URL
+- Go to Analyze page
+- Paste message
+- Click Analyze Message
 
-Frontend routes:
-- `/` (Home)
-- `/how-it-works`
-- `/analyze`
-- `/graph`
+---
 
-## API Usage
+## 🧪 Example Inputs & Outputs
 
-### Endpoint
-`POST /analyze`
-
-### Request Body
-```json
-{
-  "message": "Hello from ABC Technologies. Pay registration fee now to this UPI: fakejob@upi"
-}
+### Example 1 (High Risk)
+**Input**
+```text
+Urgent requirement! Congratulations on your selection for internship.
+Pay registration fee immediately to scam@upi.
 ```
 
-### Example Response
-```json
-{
-  "input": {
-    "message": "Hello from ABC Technologies. Pay registration fee now to this UPI: fakejob@upi",
-    "company_name": "ABC Technologies",
-    "upi_id": "fakejob@upi"
-  },
-  "graph_data": {
-    "complaint_count": 4,
-    "linked_companies": ["ABC Technologies"]
-  },
-  "trust_score": 0,
-  "risk_level": "High",
-  "explanation": "UPI has high complaints (4). Company is linked with this UPI in graph data. Message contains payment-related words. Message creates urgency pressure."
-}
+**Expected Output (approx)**
+- Trust Score: 10-30
+- Risk: High
+- Reason: urgency + money request + suspicious UPI
+
+### Example 2 (Medium Risk)
+**Input**
+```text
+SkillGrow training program. Refundable deposit required to begin.
+Send it to fake@upi.
 ```
 
-### Graph Endpoint
-`GET /graph?upi=scam@upi`
+**Expected Output (approx)**
+- Trust Score: 40-55
+- Risk: Medium/High boundary
+- Reason: deposit + payment handle + scam-like onboarding
 
-Example response:
-```json
-{
-  "upi_id": "scam@upi",
-  "complaint_count": 4,
-  "linked_companies": ["ABC Technologies"],
-  "nodes": [
-    {"id": "scam@upi", "type": "UPI", "label": "scam@upi"},
-    {"id": "ABC Technologies", "type": "Company", "label": "ABC Technologies"},
-    {"id": "complaints_scam@upi", "type": "Complaint", "label": "Complaints: 4"}
-  ],
-  "connections": [
-    {"from": "ABC Technologies", "to": "scam@upi", "label": "linked_to"},
-    {"from": "complaints_scam@upi", "to": "scam@upi", "label": "reported_on"}
-  ]
-}
+### Example 3 (Safer Message)
+**Input**
+```text
+We are hiring interns. Apply through official careers portal.
+No payment is required.
 ```
 
-## Example: TigerGraph API Response Handling
+**Expected Output (approx)**
+- Trust Score: 75-95
+- Risk: Low
+- Reason: no payment demand, normal hiring flow
 
-The backend tries both endpoint styles:
-- `https://<host>/query/<graph_name>/find_complaints_by_upi`
-- `https://<host>/restpp/query/<graph_name>/find_complaints_by_upi`
+---
 
-With header:
-`Authorization: Bearer <token>`
+## 🚀 Future Improvements
+- Add real NLP/LLM model for smarter language understanding
+- Real-time complaint feed integration
+- Multi-language scam detection (Hindi + English + regional)
+- One-click report button for suspicious messages
+- Auto-learning from user feedback
+- Stronger visual graph with interactive nodes and filters
 
-In `backend/tigergraph.py`, code:
-- reads `results` from TigerGraph JSON
-- counts complaint nodes or reads `complaint_count` if returned
-- collects company names from fields like `company` or `company_name`
-- sends the query parameter `input_upi` to `find_complaints_by_upi`
+---
 
-## GitHub Upload Checklist
+## 🏆 Why This Project is Powerful
+- Protects students and freshers from fake internships
+- Converts confusing text into simple risk score
+- Uses graph intelligence, not only keyword matching
+- Beginner-friendly design makes cybersecurity awareness easy
+- Can be expanded into a real public safety product
 
-1. Keep secrets in `backend/.env` only (never commit this file).
-2. Confirm `.gitignore` exists (already added in this project).
-3. Run app once before pushing:
-  - backend: `python app.py`
-  - frontend: `npm run dev`
-4. Push these folders/files:
-  - `backend/` (except local `.env`)
-  - `frontend/` (except `node_modules` and `dist`)
-  - `README.md`
-  - `.gitignore`
+In one line:
+**This project turns scam confusion into clear action.**
 
-## Trust Score Rules
+---
 
-Start from 100:
-- complaints count > 2 -> minus 40
-- any company linked to same UPI -> minus 30
-- job offer words -> minus 5
-- secure internship pitch -> minus 5
-- basic details request -> minus 5
-- resume and details together -> minus 25
-- limited-time offer language -> minus 15
-- urgency words in text -> minus 5
-- money request linked to a handle -> minus 10
-- refundable deposit -> minus 20
-- background check fee -> minus 35
-- payment words in text -> minus 0
-- official payment identity or account words -> minus 10
-- handle-like payment address used in a scam combo -> minus 5
+## 🙌 Team / Credits
+Built as a hackathon project by the Opportunity Trust team.
 
-Risk level:
-- 70 or more = Low
-- 40 to 69 = Medium
-- below 40 = High
+Special thanks:
+- TigerGraph platform for graph infrastructure
+- Open-source ecosystem (React, Flask, Python)
+
+---
+
+## 📁 Project Structure (Quick View)
+```text
+Opportunity Trust/
+├── backend/
+│   ├── app.py
+│   ├── logic.py
+│   ├── tigergraph.py
+│   ├── utils.py
+│   ├── requirements.txt
+│   └── .env.example
+├── frontend/
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.js
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## ✅ License
+This project uses the MIT License.
+See the `LICENSE` file for details.
