@@ -78,35 +78,91 @@ This makes scam detection easier even for a beginner.
 
 ## 🖼️ Screenshots
 
-### Landing Page
-![Landing Page](Screenshot 2026-04-06 125449.png)
+### Figure 1: TigerGraph full network (with labels)
+![TigerGraph Full Network](images/Screenshot 2026-03-31 225250.png)
 
-*Figure 1: Home screen where the user starts analysis.*
+This screen shows the raw graph in TigerGraph with visible edge labels like `complaint_to_upi` and `complaint_to_company`.
 
-### How It Works Page
-![How It Works](Screenshot 2026-04-06 125852.png)
+What this reveals:
+- One UPI node (`scam@upi`) can be connected to many complaint nodes.
+- The same UPI can also be linked with multiple company names.
+- This is the relationship data used by backend scoring.
 
-*Figure 2: Simple flow of input -> processing -> graph check -> trust score output.*
+### Figure 2: TigerGraph clean network view
+![TigerGraph Clean Graph](images/Screenshot 2026-03-31 225306.png)
 
-### Analyze + Result Page
-![Analyze Result](Screenshot 2026-04-06 130051.png)
+This is a cleaner visual of the same graph pattern without cluttered text.
 
-*Figure 3: User enters suspicious message and gets trust score, risk, and explanation.*
+What this reveals:
+- The project is not only keyword-based; it uses graph relationships too.
+- Central UPI node with many incoming complaint links means higher risk.
 
-### Risk Explanation + Graph Section
-![Risk and Graph Section](Screenshot 2026-04-06 130112.png)
+### Figure 3: Landing page (Home)
+![Landing Page Home](images/Screenshot 2026-04-06 125432.png)
 
-*Figure 4: Detailed risk reasons and graph preview for the detected UPI.*
+This is the first page users see.
 
-### Graph Preview Page
-![Graph Preview](Screenshot 2026-04-06 130022.png)
+What this reveals:
+- Project branding and purpose are clear.
+- Main checks are shown: UPI pattern, risky words, TigerGraph complaint history, trust score.
+- Call-to-action buttons help users quickly start analysis.
 
-*Figure 5: Graph data card with UPI-centered connection summary.*
+### Figure 4: How It Works workflow page
+![How It Works Workflow](images/Screenshot 2026-04-06 125449.png)
 
-### TigerGraph Explore View (Backend Graph Source)
-![TigerGraph Explore](Screenshot 2026-03-31 225250.png)
+This page explains the full pipeline in one flow.
 
-*Figure 6: Actual graph structure in TigerGraph used by the project.*
+What this reveals:
+- Four easy stages: Input Message -> AI Processing -> TigerGraph Check -> Trust Score Output.
+- The system is designed for beginners who want explainable logic.
+
+### Figure 5: Analyze page with live result
+![Analyze Result Main](images/Screenshot 2026-04-06 125852.png)
+
+This screen shows a real suspicious message being analyzed.
+
+What this reveals:
+- Trust Score is `22/100`, marked as `Risk High`.
+- Extracted entities are shown (Company and UPI ID).
+- TigerGraph complaint count is included directly in result.
+
+### Figure 6: Explanation and risk bullets
+![Risk Explanation](images/Screenshot 2026-04-06 130004.png)
+
+This section explains *why* the message is risky.
+
+What this reveals:
+- Model output is transparent and explainable.
+- Users can see exact signals: high complaints, urgency words, money request, official identity claim, handle-like address.
+
+### Figure 7: Graph preview summary card
+![Graph Preview Summary](images/Screenshot 2026-04-06 130022.png)
+
+This graph card converts backend JSON into a quick visual summary.
+
+What this reveals:
+- UPI is the center node.
+- Complaint count and relation direction are shown.
+- Data is tagged as `Live / Cached` for clarity.
+
+### Figure 8: Graph preview detailed layout
+![Graph Preview Detailed](images/Screenshot 2026-04-06 130051.png)
+
+This is a wider view of graph preview and JSON block together.
+
+What this reveals:
+- The app provides both visual graph hints and raw structured data.
+- Users can inspect exact backend response for trust and debugging.
+
+### Figure 9: Raw Graph Data JSON panel
+![Graph JSON Panel](images/Screenshot 2026-04-06 130112.png)
+
+This close-up shows the graph JSON payload.
+
+What this reveals:
+- Node types used by the project: `UPI`, `Complaint`.
+- Connection labels used by the project: `reported_on`.
+- This proves the frontend is reading real graph response fields, not fake placeholders.
 
 ---
 
