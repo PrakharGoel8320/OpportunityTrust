@@ -79,36 +79,34 @@ This makes scam detection easier even for a beginner.
 ## 🖼️ Screenshots
 
 ### Landing Page
-![Landing Page](Screenshot%202026-04-06%20125449.png)
+![Landing Page](Screenshot 2026-04-06 125449.png)
 
 *Figure 1: Home screen where the user starts analysis.*
 
 ### How It Works Page
-![How It Works](Screenshot%202026-04-06%20125852.png)
+![How It Works](Screenshot 2026-04-06 125852.png)
 
 *Figure 2: Simple flow of input -> processing -> graph check -> trust score output.*
 
 ### Analyze + Result Page
-![Analyze Result](Screenshot%202026-04-06%20130051.png)
+![Analyze Result](Screenshot 2026-04-06 130051.png)
 
 *Figure 3: User enters suspicious message and gets trust score, risk, and explanation.*
 
 ### Risk Explanation + Graph Section
-![Risk and Graph Section](Screenshot%202026-04-06%20130112.png)
+![Risk and Graph Section](Screenshot 2026-04-06 130112.png)
 
 *Figure 4: Detailed risk reasons and graph preview for the detected UPI.*
 
 ### Graph Preview Page
-![Graph Preview](Screenshot%202026-04-06%20130022.png)
+![Graph Preview](Screenshot 2026-04-06 130022.png)
 
 *Figure 5: Graph data card with UPI-centered connection summary.*
 
 ### TigerGraph Explore View (Backend Graph Source)
-![TigerGraph Explore](Screenshot%202026-03-31%20225250.png)
+![TigerGraph Explore](Screenshot 2026-03-31 225250.png)
 
 *Figure 6: Actual graph structure in TigerGraph used by the project.*
-
-> Note: Screenshot file names are kept same as captured files in the project root.
 
 ---
 
